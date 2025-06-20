@@ -1163,9 +1163,8 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </section> 
-
     <!-- Project Modal -->
     <div
       id="project-modal"
@@ -1188,7 +1187,6 @@
         </div>
       </div>
     </div>
-
     <!-- Experience Section -->
     <section id="experience" class="py-20 md:py-32 bg-[#121212]">
       <div class="container mx-auto px-6">
@@ -1376,8 +1374,15 @@
 
           <div class="animate-on-scroll">
             <form id="contact-form" action="https://formsubmit.co/joviidjumaev@gmail.com" method="POST" class="glass-card p-8 rounded-lg">
-              <!-- Add honeypot to prevent spam -->
-              <input type="text" name="_honey" style="display:none">
+              <!-- Enhanced honeypot fields to catch bots -->
+              <input type="text" name="_honey" style="display:none !important; position:absolute !important; left:-9999px !important;">
+              <input type="email" name="_email_confirm" style="display:none !important; position:absolute !important; left:-9999px !important;">
+              <input type="text" name="_website" style="display:none !important; position:absolute !important; left:-9999px !important;">
+              <input type="text" name="_phone" style="display:none !important; position:absolute !important; left:-9999px !important;">
+              
+              <!-- Time-based spam protection -->
+              <input type="hidden" name="_timestamp" id="form-timestamp">
+              <input type="hidden" name="_timezone" id="form-timezone">
               
               <!-- Disable captcha -->
               <input type="hidden" name="_captcha" value="false">
@@ -1406,6 +1411,8 @@
                     class="w-full px-4 py-3 bg-[#1a1a1a] border border-[#333] rounded focus:border-primary text-white text-sm"
                     placeholder="John Doe"
                     required
+                    minlength="2"
+                    maxlength="50"
                   />
                 </div>
                 <div>
@@ -1417,6 +1424,7 @@
                     class="w-full px-4 py-3 bg-[#1a1a1a] border border-[#333] rounded focus:border-primary text-white text-sm"
                     placeholder="john@example.com"
                     required
+                    maxlength="100"
                   />
                 </div>
               </div>
@@ -1430,6 +1438,8 @@
                   class="w-full px-4 py-3 bg-[#1a1a1a] border border-[#333] rounded focus:border-primary text-white text-sm"
                   placeholder="Project Inquiry"
                   required
+                  minlength="5"
+                  maxlength="100"
                 />
               </div>
 
@@ -1442,12 +1452,18 @@
                   class="w-full px-4 py-3 bg-[#1a1a1a] border border-[#333] rounded focus:border-primary text-white text-sm resize-none"
                   placeholder="Your message here..."
                   required
+                  minlength="10"
+                  maxlength="1000"
                 ></textarea>
+                <div class="text-xs text-white/50 mt-1">
+                  <span id="message-counter">0</span>/1000 characters
+                </div>
               </div>
 
               <button
                 type="submit"
-                class="w-full px-6 py-3 bg-primary hover:bg-opacity-90 text-white font-medium !rounded-button transition-all duration-300 glow-on-hover whitespace-nowrap"
+                id="submit-btn"
+                class="w-full px-6 py-3 bg-primary hover:bg-opacity-90 text-white font-medium !rounded-button transition-all duration-300 glow-on-hover whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Send Message
               </button>
@@ -1456,6 +1472,10 @@
             <!-- Success Message -->
             <div id="success-message" class="hidden mt-4 p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-500">
               Thank you! Your message has been sent. I will get back to you as soon as possible.
+            </div>
+
+            <!-- Error Message -->
+            <div id="error-message" class="hidden mt-4 p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-500">
             </div>
           </div>
         </div>
@@ -1988,37 +2008,230 @@
       document.addEventListener("DOMContentLoaded", function () {
         const contactForm = document.getElementById("contact-form");
         const successMessage = document.getElementById("success-message");
-
+        const errorMessage = document.getElementById("error-message");
+        const submitButton = document.getElementById("submit-btn");
+        const messageTextarea = document.getElementById("message");
+        const messageCounter = document.getElementById("message-counter");
+        
+        // Form submission tracking
+        let formStartTime = Date.now();
+        let lastSubmissionTime = 0;
+        const MIN_SUBMISSION_TIME = 3000; // 3 seconds minimum
+        const RATE_LIMIT_TIME = 60000; // 1 minute between submissions
+        
+        // Initialize form timestamp and timezone
+        document.getElementById("form-timestamp").value = formStartTime;
+        document.getElementById("form-timezone").value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        
+        // Character counter for message
+        messageTextarea.addEventListener("input", function() {
+          const currentLength = this.value.length;
+          messageCounter.textContent = currentLength;
+          
+          if (currentLength > 900) {
+            messageCounter.classList.add("text-red-500");
+          } else {
+            messageCounter.classList.remove("text-red-500");
+          }
+        });
+        
+        // Function to show error message
+        function showError(message) {
+          errorMessage.textContent = message;
+          errorMessage.classList.remove("hidden");
+          setTimeout(() => {
+            errorMessage.classList.add("hidden");
+          }, 5000);
+        }
+        
+        // Function to show success message
+        function showSuccess() {
+          successMessage.classList.remove("hidden");
+          setTimeout(() => {
+            successMessage.classList.add("hidden");
+          }, 5000);
+        }
+        
+        // Function to validate email format
+        function isValidEmail(email) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(email);
+        }
+        
+        // Function to detect URLs in text
+        function containsUrls(text) {
+          const urlRegex = /(https?:\/\/[^\s]+|www\.[^\s]+|[^\s]+\.[a-z]{2,})/gi;
+          return urlRegex.test(text);
+        }
+        
+        // Function to detect suspicious patterns
+        function containsSuspiciousContent(text) {
+          const suspiciousPatterns = [
+            /buy\s+now/i,
+            /click\s+here/i,
+            /free\s+offer/i,
+            /limited\s+time/i,
+            /act\s+now/i,
+            /money\s+back/i,
+            /guarantee/i,
+            /winner/i,
+            /congratulations/i,
+            /lottery/i,
+            /inheritance/i,
+            /urgent/i,
+            /viagra/i,
+            /casino/i,
+            /poker/i,
+            /loan/i,
+            /debt/i,
+            /credit/i,
+            /investment/i,
+            /bitcoin/i,
+            /crypto/i
+          ];
+          
+          return suspiciousPatterns.some(pattern => pattern.test(text));
+        }
+        
+        // Function to validate form submission time
+        function validateSubmissionTime() {
+          const currentTime = Date.now();
+          const timeSpent = currentTime - formStartTime;
+          
+          // Check if form was filled too quickly (likely a bot)
+          if (timeSpent < MIN_SUBMISSION_TIME) {
+            return {
+              valid: false,
+              message: "Please take your time to fill out the form properly."
+            };
+          }
+          
+          // Check rate limiting
+          if (currentTime - lastSubmissionTime < RATE_LIMIT_TIME) {
+            return {
+              valid: false,
+              message: "Please wait a moment before submitting another message."
+            };
+          }
+          
+          return { valid: true };
+        }
+        
+        // Function to validate honeypot fields
+        function validateHoneypot() {
+          const honeypotFields = [
+            document.querySelector('input[name="_honey"]'),
+            document.querySelector('input[name="_email_confirm"]'),
+            document.querySelector('input[name="_website"]'),
+            document.querySelector('input[name="_phone"]')
+          ];
+          
+          for (let field of honeypotFields) {
+            if (field && field.value.trim() !== '') {
+              return {
+                valid: false,
+                message: "Invalid form submission detected."
+              };
+            }
+          }
+          
+          return { valid: true };
+        }
+        
+        // Function to sanitize input
+        function sanitizeInput(input) {
+          return input.trim().replace(/[<>]/g, '');
+        }
+        
         contactForm.addEventListener("submit", function (e) {
           e.preventDefault();
-
+          
           // Get form values
-          const name = document.getElementById("name").value;
-          const email = document.getElementById("email").value;
-          const subject = document.getElementById("subject").value;
-          const message = document.getElementById("message").value;
-
-          // Simple form validation
+          const name = sanitizeInput(document.getElementById("name").value);
+          const email = sanitizeInput(document.getElementById("email").value);
+          const subject = sanitizeInput(document.getElementById("subject").value);
+          const message = sanitizeInput(document.getElementById("message").value);
+          
+          // Basic form validation
           if (!name || !email || !subject || !message) {
-            alert("Please fill in all fields");
+            showError("Please fill in all fields.");
             return;
           }
-
+          
+          // Length validation
+          if (name.length < 2 || name.length > 50) {
+            showError("Name must be between 2 and 50 characters.");
+            return;
+          }
+          
+          if (email.length > 100) {
+            showError("Email address is too long.");
+            return;
+          }
+          
+          if (subject.length < 5 || subject.length > 100) {
+            showError("Subject must be between 5 and 100 characters.");
+            return;
+          }
+          
+          if (message.length < 10 || message.length > 1000) {
+            showError("Message must be between 10 and 1000 characters.");
+            return;
+          }
+          
           // Email validation
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(email)) {
-            alert("Please enter a valid email address");
+          if (!isValidEmail(email)) {
+            showError("Please enter a valid email address.");
             return;
           }
-
+          
+          // Check for URLs in message (likely spam)
+          if (containsUrls(message)) {
+            showError("Messages containing links are not allowed for security reasons.");
+            return;
+          }
+          
+          // Check for suspicious content
+          if (containsSuspiciousContent(message) || containsSuspiciousContent(subject)) {
+            showError("Your message contains content that appears to be spam. Please revise your message.");
+            return;
+          }
+          
+          // Validate submission time
+          const timeValidation = validateSubmissionTime();
+          if (!timeValidation.valid) {
+            showError(timeValidation.message);
+            return;
+          }
+          
+          // Validate honeypot fields
+          const honeypotValidation = validateHoneypot();
+          if (!honeypotValidation.valid) {
+            showError(honeypotValidation.message);
+            return;
+          }
+          
           // Show loading state
-          const submitButton = contactForm.querySelector('button[type="submit"]');
           const originalButtonText = submitButton.innerHTML;
           submitButton.innerHTML = "Sending...";
           submitButton.disabled = true;
-
-          // Submit the form directly
+          
+          // Update timestamp for rate limiting
+          lastSubmissionTime = Date.now();
+          
+          // Submit the form
           contactForm.submit();
+        });
+        
+        // Reset form start time when user starts typing
+        const formInputs = contactForm.querySelectorAll('input, textarea');
+        formInputs.forEach(input => {
+          input.addEventListener('focus', function() {
+            if (formStartTime === 0) {
+              formStartTime = Date.now();
+              document.getElementById("form-timestamp").value = formStartTime;
+            }
+          });
         });
       });
     </script>
