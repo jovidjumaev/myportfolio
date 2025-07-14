@@ -756,12 +756,94 @@
             >
               Web Apps
             </button>
+            <button
+              class="project-filter-btn px-6 py-2 rounded-full text-white/70 hover:text-white whitespace-nowrap"
+              data-filter="Desktop"
+            >
+              Desktop Apps
+            </button>
           </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-          <!-- Project 1 -->
+          <!-- Project 1: Scriptify -->
+          <div
+            class="project-card tilt-card animate-on-scroll"
+            data-category="Web Apps Desktop"
+          >
+            <div
+              class="glass-card rounded-lg overflow-hidden h-full flex flex-col"
+            >
+              <div class="relative overflow-hidden">
+                <img
+                  src="images/scriptify.png"
+                  alt="Scriptify - AI Audio Transcription"
+                  class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110"
+                />
+                <div
+                  class="absolute top-4 right-4 bg-secondary text-white text-xs font-medium px-2 py-1 rounded"
+                >
+                  Desktop App
+                </div>
+              </div>
+              <div class="p-6 flex-grow">
+                <h3 class="text-xl font-bold mb-2">Scriptify - AI Audio Transcription</h3>
+                <p class="text-white/70 mb-4">
+                  A modern, open-source desktop application for high-quality audio transcription using Whisper AI. 
+                  Built during my internship in Seoul to transcribe Korean meetings, supporting English and Korean languages.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                  <span
+                    class="text-xs bg-[#2d2d2d] text-white/70 px-3 py-1 rounded-full"
+                    >TypeScript</span
+                  >
+                  <span
+                    class="text-xs bg-[#2d2d2d] text-white/70 px-3 py-1 rounded-full"
+                    >React</span
+                  >
+                  <span
+                    class="text-xs bg-[#2d2d2d] text-white/70 px-3 py-1 rounded-full"
+                    >Tauri</span
+                  >
+                  <span
+                    class="text-xs bg-[#2d2d2d] text-white/70 px-3 py-1 rounded-full"
+                    >Rust</span
+                  >
+                  <span
+                    class="text-xs bg-[#2d2d2d] text-white/70 px-3 py-1 rounded-full"
+                    >Whisper AI</span
+                  >
+                </div>
+              </div>
+              <div class="p-6 pt-0 mt-auto">
+                <div class="flex space-x-3">
+                  <button
+                    class="view-project-btn flex-1 px-4 py-2 bg-[#2d2d2d] hover:bg-[#3d3d3d] text-white text-sm font-medium !rounded-button transition-colors whitespace-nowrap"
+                    data-project="project4"
+                  >
+                    View Details
+                  </button>
+                  <a
+                    href="https://github.com/jovidjumaev/Scriptify"
+                    target="_blank"
+                    class="w-10 h-10 flex items-center justify-center bg-[#2d2d2d] hover:bg-[#3d3d3d] text-white !rounded-button transition-colors"
+                  >
+                    <i class="ri-github-line"></i>
+                  </a>
+                  <a
+                    href="https://github.com/jovidjumaev/Scriptify"
+                    target="_blank"
+                    class="w-10 h-10 flex items-center justify-center bg-[#2d2d2d] hover:bg-[#3d3d3d] text-white !rounded-button transition-colors"
+                  >
+                    <i class="ri-external-link-line"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
           <div
             class="project-card tilt-card animate-on-scroll"
             data-category="Data Analysis Web Apps"
@@ -828,7 +910,7 @@
           </div>
 
 
-          <!-- Project 2 -->
+          <!-- Project 3 -->
           <div
             class="project-card tilt-card animate-on-scroll"
             data-category="Data Analysis GIS"
@@ -896,7 +978,7 @@
             </div>
           </div>
 
-          <!-- Project 3 -->
+          <!-- Project 4 -->
           <div
             class="project-card tilt-card animate-on-scroll"
             data-category="Data Analysis"
@@ -965,205 +1047,7 @@
             </div>
           </div>
 
-          <!-- Project 4 
-          <div
-            class="project-card tilt-card animate-on-scroll"
-            data-category="web"
-          >
-            <div
-              class="glass-card rounded-lg overflow-hidden h-full flex flex-col"
-            >
-              <div class="relative overflow-hidden">
-                <img
-                  src="https://readdy.ai/api/search-image?query=task%20management%20app%20UI%20with%20dark%20theme%2C%20kanban%20board%2C%20task%20cards%2C%20calendar%20view%2C%20minimal%20design%2C%20high%20quality%20render%2C%20professional%20UI%20design&width=600&height=400&seq=5&orientation=landscape"
-                  alt="Task Management App"
-                  class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110"
-                />
-                <div
-                  class="absolute top-4 right-4 bg-primary text-white text-xs font-medium px-2 py-1 rounded"
-                >
-                  Web App
-                </div>
-              </div>
-              <div class="p-6 flex-grow">
-                <h3 class="text-xl font-bold mb-2">Task Management App</h3>
-                <p class="text-white/70 mb-4">
-                  A collaborative task management application with Kanban
-                  boards, calendar views, and team collaboration features.
-                </p>
-                <div class="flex flex-wrap gap-2 mb-6">
-                  <span
-                    class="text-xs bg-[#2d2d2d] text-white/70 px-3 py-1 rounded-full"
-                    >Vue.js</span
-                  >
-                  <span
-                    class="text-xs bg-[#2d2d2d] text-white/70 px-3 py-1 rounded-full"
-                    >Vuex</span
-                  >
-                  <span
-                    class="text-xs bg-[#2d2d2d] text-white/70 px-3 py-1 rounded-full"
-                    >Node.js</span
-                  >
-                </div>
-              </div>
-              <div class="p-6 pt-0 mt-auto">
-                <div class="flex space-x-3">
-                  <button
-                    class="view-project-btn flex-1 px-4 py-2 bg-[#2d2d2d] hover:bg-[#3d3d3d] text-white text-sm font-medium !rounded-button transition-colors whitespace-nowrap"
-                    data-project="project4"
-                  >
-                    View Details
-                  </button>
-                  <a
-                    href="#"
-                    class="w-10 h-10 flex items-center justify-center bg-[#2d2d2d] hover:bg-[#3d3d3d] text-white !rounded-button transition-colors"
-                  >
-                    <i class="ri-github-line"></i>
-                  </a>
-                  <a
-                    href="#"
-                    class="w-10 h-10 flex items-center justify-center bg-[#2d2d2d] hover:bg-[#3d3d3d] text-white !rounded-button transition-colors"
-                  >
-                    <i class="ri-external-link-line"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div> -->
-
-          <!-- Project 5 
-          <div
-            class="project-card tilt-card animate-on-scroll"
-            data-category="mobile"
-          >
-            <div
-              class="glass-card rounded-lg overflow-hidden h-full flex flex-col"
-            >
-              <div class="relative overflow-hidden">
-                <img
-                  src="https://readdy.ai/api/search-image?query=music%20streaming%20app%20UI%20with%20dark%20theme%2C%20playlist%20view%2C%20player%20controls%2C%20artist%20profiles%2C%20minimal%20design%2C%20high%20quality%20render%2C%20professional%20UI%20design&width=600&height=400&seq=6&orientation=landscape"
-                  alt="Music Streaming App"
-                  class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110"
-                />
-                <div
-                  class="absolute top-4 right-4 bg-secondary text-white text-xs font-medium px-2 py-1 rounded"
-                >
-                  Mobile
-                </div>
-              </div>
-              <div class="p-6 flex-grow">
-                <h3 class="text-xl font-bold mb-2">Music Streaming App</h3>
-                <p class="text-white/70 mb-4">
-                  A music streaming application with personalized
-                  recommendations, playlists, and social sharing features.
-                </p>
-                <div class="flex flex-wrap gap-2 mb-6">
-                  <span
-                    class="text-xs bg-[#2d2d2d] text-white/70 px-3 py-1 rounded-full"
-                    >Flutter</span
-                  >
-                  <span
-                    class="text-xs bg-[#2d2d2d] text-white/70 px-3 py-1 rounded-full"
-                    >Firebase</span
-                  >
-                  <span
-                    class="text-xs bg-[#2d2d2d] text-white/70 px-3 py-1 rounded-full"
-                    >REST API</span
-                  >
-                </div>
-              </div>
-              <div class="p-6 pt-0 mt-auto">
-                <div class="flex space-x-3">
-                  <button
-                    class="view-project-btn flex-1 px-4 py-2 bg-[#2d2d2d] hover:bg-[#3d3d3d] text-white text-sm font-medium !rounded-button transition-colors whitespace-nowrap"
-                    data-project="project5"
-                  >
-                    View Details
-                  </button>
-                  <a
-                    href="#"
-                    class="w-10 h-10 flex items-center justify-center bg-[#2d2d2d] hover:bg-[#3d3d3d] text-white !rounded-button transition-colors"
-                  >
-                    <i class="ri-github-line"></i>
-                  </a>
-                  <a
-                    href="#"
-                    class="w-10 h-10 flex items-center justify-center bg-[#2d2d2d] hover:bg-[#3d3d3d] text-white !rounded-button transition-colors"
-                  >
-                    <i class="ri-external-link-line"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div> -->
-
-          <!-- Project 6 
-          <div
-            class="project-card tilt-card animate-on-scroll"
-            data-category="ui"
-          >
-            <div
-              class="glass-card rounded-lg overflow-hidden h-full flex flex-col"
-            >
-              <div class="relative overflow-hidden">
-                <img
-                  src="https://readdy.ai/api/search-image?query=learning%20platform%20UI%20with%20dark%20theme%2C%20course%20listings%2C%20video%20player%2C%20learning%20progress%2C%20minimal%20design%2C%20high%20quality%20render%2C%20professional%20UI%20design&width=600&height=400&seq=7&orientation=landscape"
-                  alt="Learning Platform"
-                  class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110"
-                />
-                <div
-                  class="absolute top-4 right-4 bg-primary text-white text-xs font-medium px-2 py-1 rounded"
-                >
-                  UI/UX
-                </div>
-              </div>
-              <div class="p-6 flex-grow">
-                <h3 class="text-xl font-bold mb-2">Learning Platform</h3>
-                <p class="text-white/70 mb-4">
-                  An online learning platform with course management, video
-                  lessons, quizzes, and progress tracking. The platform provides an interactive learning experience for students and comprehensive tools for instructors.
-                </p>
-                <div class="flex flex-wrap gap-2 mb-6">
-                  <span
-                    class="text-xs bg-[#2d2d2d] text-white/70 px-3 py-1 rounded-full"
-                    >Angular</span
-                  >
-                  <span
-                    class="text-xs bg-[#2d2d2d] text-white/70 px-3 py-1 rounded-full"
-                    >TypeScript</span
-                  >
-                  <span
-                    class="text-xs bg-[#2d2d2d] text-white/70 px-3 py-1 rounded-full"
-                    >MongoDB</span
-                  >
-                </div>
-              </div>
-              <div class="p-6 pt-0 mt-auto">
-                <div class="flex space-x-3">
-                  <button
-                    class="view-project-btn flex-1 px-4 py-2 bg-[#2d2d2d] hover:bg-[#3d3d3d] text-white text-sm font-medium !rounded-button transition-colors whitespace-nowrap"
-                    data-project="project6"
-                  >
-                    View Details
-                  </button>
-                  <a
-                    href="#"
-                    class="w-10 h-10 flex items-center justify-center bg-[#2d2d2d] hover:bg-[#3d3d3d] text-white !rounded-button transition-colors"
-                  >
-                    <i class="ri-github-line"></i>
-                  </a>
-                  <a
-                    href="#"
-                    class="w-10 h-10 flex items-center justify-center bg-[#2d2d2d] hover:bg-[#3d3d3d] text-white !rounded-button transition-colors"
-                  >
-                    <i class="ri-external-link-line"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
+        
     </section> 
     <!-- Project Modal -->
     <div
@@ -1850,23 +1734,34 @@
             codeLink: null,
           },
           project4: {
-            title: "Task Management App",
-            category: "Web Application",
-            client: "ProductivePro",
-            date: "October 2023",
+            title: "Scriptify - AI Audio Transcription",
+            category: "Desktop Application",
+            client: "Personal Project",
+            date: "Summer 2025",
             description:
-              "A collaborative task management application designed for teams and individuals. The app features Kanban boards, calendar views, and team collaboration tools to enhance productivity and project management.",
+              "A modern, open-source desktop application for high-quality audio transcription using Whisper AI. Built during my internship in Seoul to transcribe Korean meetings, supporting English and Korean languages. Features a clean, intuitive interface with drag-and-drop file upload and real-time transcription capabilities.",
             features: [
-              "Kanban boards with customizable columns and card templates",
-              "Calendar view for deadline management",
-              "Team collaboration with comments and file attachments",
-              "Time tracking and productivity analytics",
-              "Integration with popular tools (Slack, Google Calendar)",
+              "High-quality audio transcription using OpenAI's Whisper AI",
+              "Support for English and Korean languages",
+              "Modern desktop interface built with Tauri and React",
+              "Drag-and-drop file upload functionality",
+              "Real-time transcription with progress indicators",
+              "Cross-platform compatibility (Windows, macOS, Linux)",
             ],
-            technologies: ["Vue.js", "Vuex", "Node.js", "Express", "PostgreSQL"],
+            technologies: [
+              "TypeScript",
+              "React",
+              "Tauri",
+              "Rust",
+              "Whisper AI",
+              "Vite",
+            ],
             image:
-              "https://readdy.ai/api/search-image?query=task%20management%20app%20UI%20with%20dark%20theme%2C%20kanban%20board%2C%20task%20cards%2C%20calendar%20view%2C%20minimal%20design%2C%20high%20quality%20render%2C%20professional%20UI%20design&width=800&height=500&seq=11&orientation=landscape",
+              "images/scriptify.png",
+            demoLink: null,
+            codeLink: "https://github.com/jovidjumaev/Scriptify",
           },
+
           project5: {
             title: "Music Streaming App",
             category: "Mobile Application",
